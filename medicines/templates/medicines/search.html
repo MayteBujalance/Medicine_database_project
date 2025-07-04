@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medicine Search</title>
+</head>
+<body>
+    <h1>Search Medicines by Ingredient</h1>
+    <form method="get">
+        <input type="text" name="ingredient" placeholder="Enter ingredient" value="{{ query|default:'' }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if medicines %}
+        <h2>Results:</h2>
+        <ul>
+            {% for med in medicines %}
+                <li>
+                    <strong>{{ med.name }}</strong> – £{{ med.price }} <br>
+                    Company: {{ med.company.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <p>No medicines found with ingredient: <strong>{{ query }}</strong></p>
+    {% endif %}
+</body>
+</html>
