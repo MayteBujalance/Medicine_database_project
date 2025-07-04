@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Medicine,Ingredient, Company
+from .models import Medicine, Ingredient, Company
+
 
 # Register your models here.
 

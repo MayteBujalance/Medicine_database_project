@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Medicine
+from .models import Medicine, Ingredient
 
 # Create your views here.
 
