@@ -10,10 +10,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os 
 from pathlib import Path
+
+
+# Load env.py (this is done after connecting to the database)
+env_path = Path(__file__).resolve().parent.parent / 'env.py'
+if env_path.exists():
+    with open(env_path) as f:
+        exec(f.read())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -74,10 +85,14 @@ WSGI_APPLICATION = 'my_medicine_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+import dj_database_url
+# Ensure DATABASE_URL is set in the environment
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
     }
 }
 

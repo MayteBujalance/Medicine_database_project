@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Medicine, Ingredient
+from .models import Medicine
+from django.http import HttpResponse
 
 # View to show all medicines
 def index(request):

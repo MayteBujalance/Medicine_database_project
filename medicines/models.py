@@ -3,25 +3,19 @@ from django.db import models
 # Create the model here
 
 
-class Ingredient(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
-class Company(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
-
 class Medicine(models.Model):
-    name = models.CharField(max_length=100)
-    ingredients = models.ManyToManyField(Ingredient)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, default=1)  # 1-off default
-    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+    bnf_code = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
+
+class Pricing(models.Model):
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    cost = models.DecimalField(max_digits=12, decimal_places=2)
+    period_start = models.DateField(null=True, blank=True)
+    period_end = models.DateField(null=True, blank=True)
+
+class Terminology(models.Model):
+    code = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
