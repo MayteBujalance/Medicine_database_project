@@ -4,17 +4,19 @@ from django.db import models
 
 
 class Medicine(models.Model):
-    bnf_code = models.CharField(max_length=100, unique=True)
+    bnf_code = models.CharField(max_length=255, null=True, blank=True)
     name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
+
 
 class Pricing(models.Model):
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     cost = models.DecimalField(max_digits=12, decimal_places=2)
     period_start = models.DateField(null=True, blank=True)
     period_end = models.DateField(null=True, blank=True)
+
 
 class Terminology(models.Model):
     code = models.CharField(max_length=100, unique=True)
